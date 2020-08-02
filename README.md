@@ -15,7 +15,7 @@ https://www.counselar.com
 - node.js, express, mongoDB, mongoose
 - MongoDB hosted on MongoDB Atlas
 - TODO: DNS and SSL handled by AWS Route 53
-- TODO: CI/CD handled by AWS Amplify
+- TODO: CI/CD handled by Heroku
 - TODO: Asset storage handled by AWS S3
 - TODO: Email development handled by Mailtrap
 - TODO: Email client handled by SendGrid
@@ -45,9 +45,9 @@ https://www.counselar.com
 <!-- ## RESTRICTED: Deploy to Testing Environment
 
 1. Merge to **testing** branch
-2. TODO: provide testing url
+2. TODO: provide testing url -->
 
-## RESTRICTED: Deploy to Production Environment
+## Deploy to Production Environment
 
 1. Merge to **master** branch
-2. TODO: provide production url -->
+2.
