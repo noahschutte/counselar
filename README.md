@@ -2,18 +2,24 @@
 
 Online training platform
 
+https://www.counselar.com
+
 ## Product information
 
 - Wireframe: https://projects.invisionapp.com/freehand/document/oliZGY1nr
-- TODO: Drawio ERD: https://drive.google.com/file/d/19rwwYUjVhEdWp6CGKPl_83fPujucM-G3/view?usp=sharing
-- TODO: host Postman API Documentation
+- Drawio ERD: https://drive.google.com/file/d/19rwwYUjVhEdWp6CGKPl_83fPujucM-G3/view?usp=sharing
+- Postman API Documentation: https://documenter.getpostman.com/view/582732/T1Dv9aLw?version=latest
 
-## Tech Stack
+## Tech Stack and Services
 
 - node.js, express, mongoDB, mongoose
-- TODO: CI/CD handled by AWS Amplify
+- MongoDB hosted on MongoDB Atlas
 - TODO: DNS and SSL handled by AWS Route 53
+- TODO: CI/CD handled by AWS Amplify
 - TODO: Asset storage handled by AWS S3
+- TODO: Email development handled by Mailtrap
+- TODO: Email client handled by SendGrid
+- TODO: Payment handled by Stripe
 
 ## Run Application Locally
 
@@ -36,7 +42,7 @@ Online training platform
 - VSCode
   - Let me know if you need linter configurations
 
-## RESTRICTED: Deploy to Testing Environment
+<!-- ## RESTRICTED: Deploy to Testing Environment
 
 1. Merge to **testing** branch
 2. TODO: provide testing url
@@ -44,4 +50,4 @@ Online training platform
 ## RESTRICTED: Deploy to Production Environment
 
 1. Merge to **master** branch
-2. TODO: provide production url
+2. TODO: provide production url -->
