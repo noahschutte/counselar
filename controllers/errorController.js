@@ -59,6 +59,10 @@ const sendErrorProd = (err, res) => {
     }
 };
 
+const invalidJSONRequest = () => {
+    return new AppError('Invalid JSON request.', 400);
+}
+
 module.exports = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
@@ -70,9 +74,10 @@ module.exports = (err, req, res, next) => {
             ...err
         };
 
+        if (error.status === 400 && error.type === 'entity.parse.failed' && error.body) error = invalidJSONRequest(error);
         if (error.name === 'CastError') error = handleCastErrorDB(error);
         if (error.code === 11000) error = handleDuplicateFieldsDB(error);
-        if (error.errors[Object.keys(error.errors)[0]].stack.startsWith('ValidatorError')) error = handleValidationErrorDB(error);
+        if (error.errors && error.errors[Object.keys(error.errors)[0]].stack.startsWith('ValidatorError')) error = handleValidationErrorDB(error);
         if (error.name === 'JsonWebTokenError') error = handleJWTError();
         if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
 
