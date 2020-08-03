@@ -40,7 +40,6 @@ https://www.counselar.com
 - postman
 - compass
 - VSCode
-  - Let me know if you need linter configurations
 
 <!-- ## RESTRICTED: Deploy to Testing Environment
 
@@ -49,5 +48,7 @@ https://www.counselar.com
 
 ## Deploy to Production Environment
 
+https://counselar.herokuapp.com/
+
 1. Merge to **master** branch
-2.
+2. `git push heroku master`
