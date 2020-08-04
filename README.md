@@ -14,7 +14,7 @@ https://www.counselar.com
 
 - node.js, express, mongoDB, mongoose
 - MongoDB hosted on MongoDB Atlas
-- CI/CD handled by Heroku
+- CI/CD automatic deploy with Heroku pipeline
 - TODO: DNS and SSL handled by AWS Route 53
 - TODO: Asset storage handled by AWS S3
 - TODO: Email development handled by Mailtrap
@@ -45,5 +45,4 @@ https://www.counselar.com
 
 https://counselar.herokuapp.com/
 
-1. Merge to **master** branch
-2. `git push heroku master`
+1. Merge to **master** branch will automatically deploy to production environment
