@@ -1,0 +1,41 @@
+[{
+        "_id": "5c8a1dfa2f8fb814b56fa181",
+        "name": "admin",
+        "email": "admin@test.com",
+        "role": "user",
+        "active": true,
+        "password": "test1234"
+    },
+    {
+        "_id": "5c8a1dfa2f8fb814b56fa182",
+        "name": "tester",
+        "email": "tester@test.com",
+        "role": "user",
+        "active": true,
+        "password": "test1234"
+    },
+    {
+        "_id": "5c8a1dfa2f8fb814b56fa183",
+        "name": "tester1",
+        "email": "tester1@test.com",
+        "role": "user",
+        "active": true,
+        "password": "test1234"
+    },
+    {
+        "_id": "5c8a1dfa2f8fb814b56fa184",
+        "name": "tester2",
+        "email": "tester2@test.com",
+        "role": "user",
+        "active": true,
+        "password": "test1234"
+    },
+    {
+        "_id": "5c8a1dfa2f8fb814b56fa185",
+        "name": "tester3",
+        "email": "tester3@test.com",
+        "role": "user",
+        "active": true,
+        "password": "test1234"
+    }
+]
