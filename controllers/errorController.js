@@ -75,7 +75,7 @@ module.exports = (err, req, res, next) => {
         };
 
         if (error.status === 400 && error.type === 'entity.parse.failed' && error.body) error = invalidJSONRequest(error);
-        if (error.name === 'CastError') error = handleCastErrorDB(error);
+        // if (error.name === 'CastError') error = handleCastErrorDB(error);
         if (error.code === 11000) error = handleDuplicateFieldsDB(error);
         if (error.errors && error.errors[Object.keys(error.errors)[0]].stack.startsWith('ValidatorError')) error = handleValidationErrorDB(error);
         if (error.name === 'JsonWebTokenError') error = handleJWTError();
