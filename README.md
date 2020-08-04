@@ -14,7 +14,7 @@ https://www.counselar.com
 
 - node.js, express, mongoDB, mongoose
 - MongoDB hosted on MongoDB Atlas
-- CI/CD automatic deploy with Heroku pipeline
+- CI/CD automatic deploy with GitHub/Heroku pipeline
 - TODO: DNS and SSL handled by AWS Route 53
 - TODO: Asset storage handled by AWS S3
 - TODO: Email development handled by Mailtrap
