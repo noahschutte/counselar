@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
@@ -49,6 +50,10 @@ exports.createOne = Model =>
 
 exports.getOne = (Model, popOptions) =>
     catchAsync(async (req, res, next) => {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return next(new AppError('Not a UUID', 400));
+        }
+
         let query = Model.findById(req.params.id);
         if (popOptions) query = query.populate(popOptions);
         const doc = await query;
