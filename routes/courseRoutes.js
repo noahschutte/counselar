@@ -1,8 +1,11 @@
 const express = require('express');
 const courseController = require('./../controllers/courseController');
 const authController = require('./../controllers/authController');
+const reviewRouter = require("./reviewRoutes");
 
 const router = express.Router();
+
+router.use('/:courseId/reviews', reviewRouter);
 
 router
     .route('/top-5-cheap')
