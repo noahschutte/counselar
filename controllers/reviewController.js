@@ -6,7 +6,6 @@ exports.setCourseUserIds = (req, res, next) => {
     // Allow nested routes
     if (!req.body.course) req.body.course = req.params.courseId;
     if (!req.body.user) req.body.user = req.user.id;
-    console.log(req.body)
     next();
 };
 

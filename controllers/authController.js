@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const Course = require('./../models/courseModel');
 const Review = require('./../models/reviewModel');
+const Transaction = require('./../models/transactionModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/email');
@@ -168,10 +169,12 @@ exports.isLoggedIn = async (req, res, next) => {
 exports.restrictToOwner = catchAsync(async (req, res, next) => {
     const currentCourse = await Course.findById(req.params.id);
     const currentReview = await Review.findById(req.params.id);
+    const currentTransaction = await Transaction.findById(req.params.id);
     let document
     if (currentCourse) document = currentCourse
     if (currentReview) document = currentReview
-    if (!(req.body.user._id.equals(document.user.id)) && !(req.body.user.role === 'admin')) {
+    if (currentTransaction) document = currentTransaction
+    if (document && !(req.body.user._id.equals(document.user.id)) && !(req.body.user.role === 'admin')) {
         return next(
             new AppError('You do not have permission to perform this action', 403)
         );
