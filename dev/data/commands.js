@@ -2,6 +2,7 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const User = require('./../../models/userModel');
+const Course = require('./../../models/courseModel');
 
 dotenv.config({
     path: './config.env'
@@ -33,7 +34,6 @@ const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 // IMPORT DATA INTO DB
 const importData = async () => {
     try {
-        console.log("users: ", users)
         await User.create(users, {
             validateBeforeSave: false
         })
@@ -46,9 +46,20 @@ const importData = async () => {
 };
 
 // DELETE ALL DATA FROM DB
-const deleteData = async () => {
+const deleteData = async Model => {
+    if (Model) {
+        try {
+            await Model.deleteMany();
+            console.log(`Collection successfully deleted`);
+        } catch (err) {
+            console.log("error: ", err);
+        }
+        console.log('exiting process...')
+        process.exit();
+    }
     try {
         await User.deleteMany();
+        await Course.deleteMany();
         console.log('Data successfully deleted!');
     } catch (err) {
         console.log("error: ", err);
@@ -57,8 +68,16 @@ const deleteData = async () => {
     process.exit();
 };
 
+const modelArg = process.argv[3]
+let model
+if (modelArg === 'User') {
+    model = User
+} else if (modelArg === 'Course') {
+    model = Course
+}
+
 if (process.argv[2] === '--import') {
-    importData();
+    importData(model);
 } else if (process.argv[2] === '--delete') {
-    deleteData();
+    deleteData(model);
 }

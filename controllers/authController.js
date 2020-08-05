@@ -4,6 +4,7 @@ const {
 } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
+const Course = require('./../models/courseModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/email');
@@ -127,7 +128,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     // GRANT ACCESS TO PROTECTED ROUTE
-    req.user = currentUser;
+    req.body.user = currentUser;
     res.locals.user = currentUser;
     next();
 });
@@ -163,10 +164,21 @@ exports.isLoggedIn = async (req, res, next) => {
     next();
 };
 
+exports.restrictToOwner = catchAsync(async (req, res, next) => {
+    const currentCourse = await Course.findById(req.params.id);
+    if (!(req.body.user._id.equals(currentCourse.user.id)) && !(req.body.user.role === 'admin')) {
+        return next(
+            new AppError('You do not have permission to perform this action', 403)
+        );
+    }
+
+    next();
+})
+
 exports.restrictTo = (...roles) => {
     return (req, res, next) => {
         // roles ['admin']. role='user'
-        if (!roles.includes(req.user.role)) {
+        if (!roles.includes(req.body.user.role)) {
             return next(
                 new AppError('You do not have permission to perform this action', 403)
             );
@@ -247,7 +259,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
     // 1) Get user from collection
-    const user = await User.findById(req.user.id).select('+password');
+    const user = await User.findById(req.body.user.id).select('+password');
 
     // 2) Check if POSTed current password is correct
     if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {

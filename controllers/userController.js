@@ -11,7 +11,7 @@ const factory = require('./handlerFactory');
 //   },
 //   filename: (req, file, cb) => {
 //     const ext = file.mimetype.split('/')[1];
-//     cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
+//     cb(null, `user-${req.body.user.id}-${Date.now()}.${ext}`);
 //   }
 // });
 const multerStorage = multer.memoryStorage();
@@ -34,7 +34,7 @@ exports.uploadUserPhoto = upload.single('photo');
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     if (!req.file) return next();
 
-    req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
+    req.file.filename = `user-${req.body.user.id}-${Date.now()}.jpeg`;
 
     await sharp(req.file.buffer)
         .resize(500, 500)
@@ -56,7 +56,7 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 exports.getMe = (req, res, next) => {
-    req.params.id = req.user.id;
+    req.params.id = req.body.user.id;
     next();
 };
 
@@ -76,7 +76,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     if (req.file) filteredBody.photo = req.file.filename;
 
     // 3) Update user document
-    const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+    const updatedUser = await User.findByIdAndUpdate(req.body.user.id, filteredBody, {
         new: true,
         runValidators: true
     });
@@ -90,7 +90,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
-    await User.findByIdAndUpdate(req.user.id, {
+    await User.findByIdAndUpdate(req.body.user.id, {
         active: false
     });
 

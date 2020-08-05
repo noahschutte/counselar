@@ -14,6 +14,7 @@ const cors = require("cors");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
+const courseRouter = require("./routes/courseRoutes");
 
 // Start express app
 const app = express();
@@ -27,13 +28,13 @@ app.set("views", path.join(__dirname, "views"));
 // Implement CORS
 app.use(cors());
 // Access-Control-Allow-Origin *
-// api.natours.com, front-end natours.com
+// api.counselar.com, front-end counselar.com
 // app.use(cors({
-//   origin: 'https://www.natours.com'
+//   origin: 'https://www.counselar.com'
 // }))
 
 app.options("*", cors());
-// app.options('/api/v1/tours/:id', cors());
+// app.options('/api/v1/courses/:id', cors());
 
 // Serving static files
 app.use(express.static(path.join(__dirname, "public")));
@@ -64,7 +65,9 @@ app.use("/api", limiter);
 // );
 
 app.use(require("body-parser").json());
-app.use(require("body-parser").urlencoded({ extended: true }));
+app.use(require("body-parser").urlencoded({
+  extended: true
+}));
 
 // Body parser, reading data from body into req.body
 app.use(
@@ -90,12 +93,11 @@ app.use(xss());
 app.use(
   hpp({
     whitelist: [
-      "duration",
       "ratingsQuantity",
       "ratingsAverage",
-      "maxGroupSize",
       "difficulty",
       "price",
+      "createdAt"
     ],
   })
 );
@@ -111,6 +113,7 @@ app.use((req, res, next) => {
 
 // 3) ROUTES
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/courses", courseRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

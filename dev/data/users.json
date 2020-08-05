@@ -2,7 +2,7 @@
         "_id": "5c8a1dfa2f8fb814b56fa181",
         "name": "admin",
         "email": "admin@test.com",
-        "role": "user",
+        "role": "admin",
         "active": true,
         "password": "test1234"
     },
