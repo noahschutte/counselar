@@ -174,7 +174,7 @@ exports.restrictToOwner = catchAsync(async (req, res, next) => {
     if (currentCourse) document = currentCourse
     if (currentReview) document = currentReview
     if (currentTransaction) document = currentTransaction
-    if (document && !(req.body.user._id.equals(document.user.id)) && !(req.body.user.role === 'admin')) {
+    if ((document && !(req.body.user._id.equals(document.user.id))) && !(req.body.user.role === 'admin')) {
         return next(
             new AppError('You do not have permission to perform this action', 403)
         );

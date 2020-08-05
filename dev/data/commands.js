@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const User = require('./../../models/userModel');
 const Course = require('./../../models/courseModel');
+const Review = require('./../../models/reviewModel');
 
 dotenv.config({
     path: './config.env'
@@ -30,6 +31,8 @@ mongoose
 
 // READ JSON FILE
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
+const courses = JSON.parse(fs.readFileSync(`${__dirname}/courses.json`, 'utf-8'));
+const reviews = JSON.parse(fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8'));
 
 // IMPORT DATA INTO DB
 const importData = async () => {
@@ -38,6 +41,14 @@ const importData = async () => {
             validateBeforeSave: false
         })
         console.log('users imported')
+        await Course.create(courses, {
+            validateBeforeSave: false
+        })
+        console.log('courses imported')
+        await Review.create(reviews, {
+            validateBeforeSave: false
+        })
+        console.log('reviews imported')
     } catch (err) {
         console.log('error:', err)
     }
