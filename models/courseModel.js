@@ -90,6 +90,13 @@ courseSchema.index({
     slug: 1
 });
 
+// Virtual populate
+courseSchema.virtual('reviews', {
+    ref: 'Review',
+    foreignField: 'course',
+    localField: '_id'
+});
+
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 courseSchema.pre('save', function (next) {
     this.slug = slugify(this.name, {

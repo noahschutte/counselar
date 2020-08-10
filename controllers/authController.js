@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const Course = require('./../models/courseModel');
 const Review = require('./../models/reviewModel');
-const Transaction = require('./../models/transactionModel');
+const Purchase = require('./../models/purchaseModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/email');
@@ -50,8 +50,8 @@ exports.signup = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm
     });
 
-    // const url = `${req.protocol}://${req.get('host')}/me`;
-    // // console.log(url);
+    const url = `${req.protocol}://${req.get('host')}/me`;
+    // console.log(url);
     // await new Email(newUser, url).sendWelcome();
 
     createSendToken(newUser, 201, req, res);
@@ -169,11 +169,11 @@ exports.isLoggedIn = async (req, res, next) => {
 exports.restrictToOwner = catchAsync(async (req, res, next) => {
     const currentCourse = await Course.findById(req.params.id);
     const currentReview = await Review.findById(req.params.id);
-    const currentTransaction = await Transaction.findById(req.params.id);
+    const currentPurchase = await Purchase.findById(req.params.id);
     let document
     if (currentCourse) document = currentCourse
     if (currentReview) document = currentReview
-    if (currentTransaction) document = currentTransaction
+    if (currentPurchase) document = currentPurchase
     if ((document && !(req.body.user._id.equals(document.user.id))) && !(req.body.user.role === 'admin')) {
         return next(
             new AppError('You do not have permission to perform this action', 403)

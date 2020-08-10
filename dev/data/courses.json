@@ -3,6 +3,7 @@
     "ratingsQuantity": 6,
     "images": ["course-2-1.jpg", "course-2-2.jpg", "course-2-3.jpg"],
     "_id": "5c88fa8cf4afda39709c2951",
+    "user": "5c8a1dfa2f8fb814b56fa182",
     "name": "Tying your shoes",
     "difficulty": "medium",
     "price": 497,

@@ -1,8 +1,8 @@
-# counselAR
+# CounselAR
 
 Online training platform
 
-TODO: https://www.counselAR.com
+TODO: https://www.counselar.com
 
 ## Product information
 

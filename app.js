@@ -16,7 +16,8 @@ const globalErrorHandler = require("./controllers/errorController");
 const userRouter = require("./routes/userRoutes");
 const courseRouter = require("./routes/courseRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
-const transactionRouter = require("./routes/transactionRoutes");
+const purchaseRouter = require("./routes/purchaseRoutes");
+const viewRouter = require("./routes/viewRoutes");
 
 // Start express app
 const app = express();
@@ -63,13 +64,15 @@ app.use("/api", limiter);
 //   bodyParser.raw({
 //     type: "application/json",
 //   }),
-//   bookingController.webhookCheckout
+//   purchasesController.webhookCheckout
 // );
 
 app.use(require("body-parser").json());
-app.use(require("body-parser").urlencoded({
-  extended: true
-}));
+app.use(
+  require("body-parser").urlencoded({
+    extended: true,
+  })
+);
 
 // Body parser, reading data from body into req.body
 app.use(
@@ -99,7 +102,7 @@ app.use(
       "ratingsAverage",
       "difficulty",
       "price",
-      "createdAt"
+      "createdAt",
     ],
   })
 );
@@ -109,15 +112,16 @@ app.use(compression());
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  // console.log(req.cookies);
+  console.log(req.cookies);
   next();
 });
 
 // 3) ROUTES
+app.use("/", viewRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/reviews", reviewRouter);
-app.use("/api/v1/transactions", transactionRouter);
+app.use("/api/v1/purchases", purchaseRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
